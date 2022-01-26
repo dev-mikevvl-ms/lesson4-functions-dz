@@ -2,26 +2,32 @@
 teSep_s = '_' *80
 
 def teInPWTypedWVali_fif(laWhatInPMsg_s, laInPValues_co=1, laValiInPMsg_s='',
-    laVali_cll=None, laInPType_cll=int, laMaxInPTry_co=11) -> tuple:
+    laVali_cll=None, laInPTypeFlt_cll=int, laMaxInPTry_co=11,
+    laAcceptEmptyInPAsDf_b=False, laDfV_s=None, laVerbose_i=None) -> tuple:
   if laInPValues_co < 1: raise ValueError(f'laInPValues_co must be > 0, now:{laInPValues_co}')
   loTypeAValiFlsCo_l, loRes_l, loMaxTry_co = [0, 0], [], int(max(laInPValues_co, laMaxInPTry_co))
   if laValiInPMsg_s and laVali_cll:
     lo_s = f' - your value will be validated as({laValiInPMsg_s}) -'
   else: lo_s = ''
-  loInPMsg_s = f"Please, Input{laWhatInPMsg_s}{lo_s} and press Enter: "
+  lo_s = f"Please, Input{laWhatInPMsg_s}{lo_s} and press Enter"
+  if laAcceptEmptyInPAsDf_b and laDfV_s is not None:
+    lo_s += f"(on default '{laDfV_s}')"
+  loInPMsg_s = f"{lo_s}: "
   for l_co in range(loMaxTry_co):
     li_s = input(loInPMsg_s)
+    if li_s == '' and laAcceptEmptyInPAsDf_b and laDfV_s is not None:
+      li_s = laDfV_s # 2Do: Che: laDfV_s is str
     # if not li_s: ??User(Exit|Bre) ??laAcceptEmpty(As(Df|Bre))InP_b=False
     try:
-      if laInPType_cll is not None:
-        # print(f'DBG:1 laInPType_cll')
-        liChe_i = laInPType_cll(li_s)
-        # print(f'DBG:2 laInPType_cll')
+      if laInPTypeFlt_cll is not None:
+        # print(f'DBG:1 laInPTypeFlt_cll')
+        liChe_i = laInPTypeFlt_cll(li_s)
+        # print(f'DBG:2 laInPTypeFlt_cll')
       else: liChe_i = li_s
-      # print(f'DBG:3 laInPType_cll')
+      # print(f'DBG:3 laInPTypeFlt_cll')
     except ValueError as leExc_o:
       loTypeAValiFlsCo_l[0] +=1; liChe_i = None
-      print(f"\tERR: You input:'{li_s}' NOT pass check type w/func({laInPType_cll}",
+      print(f"\tERR: You input:'{li_s}' NOT pass check type w/func({laInPTypeFlt_cll}",
           f'- Exception:{type(leExc_o).__name__}({leExc_o}) raised.')
     else:
       if laVali_cll is not None:
@@ -50,7 +56,7 @@ def teInPWTypedWVali_fif(laWhatInPMsg_s, laInPValues_co=1, laValiInPMsg_s='',
     else: lo_s = ''
     print(f'MSG: It remains to input {laInPValues_co - len(loRes_l)} more value{lo_s}.')
   return tuple(loRes_l)
-# print(teInPWTypedWVali_fif(laInPValues_co=2, laInPType_cll=float, laMaxInPTry_co=1),
+# print(teInPWTypedWVali_fif(laInPValues_co=2, laInPTypeFlt_cll=float, laMaxInPTry_co=1),
 #  teInPWTypedWVali_fif(laValiWhatInPMsg_s=tCndInPMsg_s,
 #   laVali_cll=lambda x: x in tValiV_t)
 #   )
@@ -65,9 +71,11 @@ def teInPWTypedWVali_fif(laWhatInPMsg_s, laInPValues_co=1, laValiInPMsg_s='',
 #     )
 # print(f'В списке будет {tResLLen_co} элементов.')
 # tValiV_t = tuple(range(0, 10))
+tValiV_t = ('Y', 'N')
 # tCndInPMsg_s = f' (по очереди по одной вводите любые цифры) a Integer OneOf{tValiV_t}'
-# tRes_l = list(teInPWTypedWVali_fif(f' по очереди по одной любые цифры {tResLLen_co} раза',
-#     laInPValues_co=tResLLen_co, laValiInPMsg_s=f'a Integer OneOf{tValiV_t}',
-#     laVali_cll=lambda x: x in tValiV_t))
+tRes_l = list(teInPWTypedWVali_fif(f' Ts 2 times',
+    laInPValues_co=2, laInPTypeFlt_cll=None, laDfV_s='Y',
+    laAcceptEmptyInPAsDf_b=True, laValiInPMsg_s=f'a character OneOf{tValiV_t}',
+    laVali_cll=lambda _s: _s.upper() in tValiV_t))
 # tRes_l.sort()
-# print(tRes_l)
+print(tRes_l)
