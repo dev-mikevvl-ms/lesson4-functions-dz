@@ -1,3 +1,13 @@
+import sys
+from MVVlStd import teSep_s
+
+tTskMsg_s = '''
+Задача 3. МОДУЛЬ 1. файл myfunctions.py
+Вверху файла даны инструкции по выполнению дз.
+Даны заготовки 8-и функции, предлагается написать для них реализацию
+'''
+print(teSep_s, tTskMsg_s, f'{sys.version=}', teSep_s, 'Result:', '',  sep='\n')
+
 """
 МОДУЛЬ 1
 В модуле прописаны заготовки для 8 функций
@@ -12,11 +22,13 @@ def simple_separator():
     Функция создает красивый резделитель из 10-и звездочек (**********)
     :return: **********
     """
-    pass
+    return '**' *5
 
 
+print("\nsimple_separator() == '**********'")  # True
+print("simple_separator() == '**********'")  # True
 print(simple_separator() == '**********')  # True
-
+print(teSep_s[:len(teSep_s)//2], '', sep='\n')
 
 def long_separator(count):
     """
@@ -24,11 +36,14 @@ def long_separator(count):
     :param count: количество звездочек
     :return: строка разделитель, примеры использования ниже
     """
-    pass
+    return '*' *count
 
 
+print("long_separator(3) == '***'")  # True
 print(long_separator(3) == '***')  # True
+print("long_separator(4) == '****'")  # True
 print(long_separator(4) == '****')  # True
+print(teSep_s[:len(teSep_s)//2], '', sep='\n')
 
 
 def separator(simbol, count):
@@ -38,11 +53,14 @@ def separator(simbol, count):
     :param count: количество повторений
     :return: строка разделитель примеры использования ниже
     """
-    pass
+    return simbol *count
 
 
+print("separator('-', 10) == '----------'")  # True
 print(separator('-', 10) == '----------')  # True
+print("separator('#', 5) == '#####'")  # True
 print(separator('#', 5) == '#####')  # True
+print(teSep_s[:len(teSep_s)//2], '', sep='\n')
 
 
 def hello_world():
@@ -55,7 +73,9 @@ def hello_world():
     ##########
     :return: None
     """
-    pass
+    print(separator('*', 10), '\nHello World!\n',
+        separator('#', 10), sep='\n')
+
 
 
 '''
@@ -65,7 +85,9 @@ Hello World!
 
 ##########
 '''
+print("hello_world()")  # True
 hello_world()
+print(teSep_s[:len(teSep_s)//2], '', sep='\n')
 
 
 def hello_who(who='World'):
@@ -79,7 +101,8 @@ def hello_who(who='World'):
     :param who: кого мы приветствуем, по умолчанию World
     :return: None
     """
-    pass
+    print(separator('*', 10), f'\nHello {who}!\n',
+        separator('#', 10), sep='\n')
 
 
 '''
@@ -89,6 +112,7 @@ Hello World!
 
 ##########
 '''
+print("hello_who()")
 hello_who()
 '''
 **********
@@ -97,6 +121,7 @@ Hello Max!
 
 ##########
 '''
+print("hello_who('Max')")
 hello_who('Max')
 '''
 **********
@@ -105,7 +130,9 @@ Hello Kate!
 
 ##########
 '''
+print("hello_who('Kate')")
 hello_who('Kate')
+print(teSep_s[:len(teSep_s)//2], '', sep='\n')
 
 
 def pow_many(power, *args):
@@ -115,14 +142,20 @@ def pow_many(power, *args):
     :param args: любое количество цифр
     :return: результат вычисления # True -> (1 + 2)**1
     """
-    pass
+    return sum(args) **power
 
 
+print('pow_many(1, 1, 2) == 3')  # True -> (1 + 2)**1 == 3
 print(pow_many(1, 1, 2) == 3)  # True -> (1 + 2)**1 == 3
+print('pow_many(1, 2, 3) == 5')  # True -> (2 + 3)**1 == 5
 print(pow_many(1, 2, 3) == 5)  # True -> (2 + 3)**1 == 5
+print('pow_many(2, 1, 1) == 4')  # True -> (1 + 1)**2 == 4
 print(pow_many(2, 1, 1) == 4)  # True -> (1 + 1)**2 == 4
+print('pow_many(3, 2) == 8')  # True -> 2**3 == 8
 print(pow_many(3, 2) == 8)  # True -> 2**3 == 8
+print('pow_many(2, 1, 2, 3, 4) == 100')  # True -> (1 + 2 + 3 + 4)**2 == 10**2 == 100
 print(pow_many(2, 1, 2, 3, 4) == 100)  # True -> (1 + 2 + 3 + 4)**2 == 10**2 == 100
+print(teSep_s[:len(teSep_s)//2], '', sep='\n')
 
 
 def print_key_val(**kwargs):
@@ -133,19 +166,22 @@ def print_key_val(**kwargs):
     :param kwargs: любое количество именованных параметров
     :return: None
     """
-    pass
+    print(*(f'{_k} --> {_v}' for _k, _v in kwargs.items()), sep='\n')
 
 
 """
 name --> Max
 age --> 21
 """
+print("print_key_val(name='Max', age=21)")
 print_key_val(name='Max', age=21)
 """
 animal --> Cat
 is_animal --> True
 """
+print("print_key_val(animal='Cat', is_animal=True)")
 print_key_val(animal='Cat', is_animal=True)
+print(teSep_s[:len(teSep_s)//2], '', sep='\n')
 
 
 def my_filter(iterable, function):
@@ -158,10 +194,17 @@ def my_filter(iterable, function):
     :param function: функция фильтрации
     :return: новая отфильтрованная последовательность
     """
-    pass
+    return list(_el for _el in iterable if function(_el))
 
 
+print('my_filter([1, 2, 3, 4, 5], lambda x: x > 3) == [4, 5]')  # True
 print(my_filter([1, 2, 3, 4, 5], lambda x: x > 3) == [4, 5])  # True
+print('my_filter([1, 2, 3, 4, 5], lambda x: x == 2) == [2]')  # True
 print(my_filter([1, 2, 3, 4, 5], lambda x: x == 2) == [2])  # True
+print('my_filter([1, 2, 3, 4, 5], lambda x: x != 3) == [1, 2, 4, 5]')  # True
 print(my_filter([1, 2, 3, 4, 5], lambda x: x != 3) == [1, 2, 4, 5])  # True
+print("my_filter(['a', 'b', 'c', 'd'], lambda x: x in 'abba') == ['a', 'b']")  # True
 print(my_filter(['a', 'b', 'c', 'd'], lambda x: x in 'abba') == ['a', 'b'])  # True
+# print(teSep_s[:len(teSep_s)//2], '', sep='\n')
+
+print(teSep_s)
