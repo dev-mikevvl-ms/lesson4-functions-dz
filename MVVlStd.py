@@ -11,10 +11,14 @@ def teInPWTypedWVali_fif(laWhatInPMsg_s, laInPValues_co=1, laValiInPMsg_s='',
   loInPMsg_s = f"Please, Input{laWhatInPMsg_s}{lo_s} and press Enter: "
   for l_co in range(loMaxTry_co):
     li_s = input(loInPMsg_s)
+    # if not li_s: ??User(Exit|Bre) ??laAcceptEmpty(As(Df|Bre))InP_b=False
     try:
       if laInPType_cll is not None:
+        # print(f'DBG:1 laInPType_cll')
         liChe_i = laInPType_cll(li_s)
+        # print(f'DBG:2 laInPType_cll')
       else: liChe_i = li_s
+      # print(f'DBG:3 laInPType_cll')
     except ValueError as leExc_o:
       loTypeAValiFlsCo_l[0] +=1; liChe_i = None
       print(f"\tERR: You input:'{li_s}' NOT pass check type w/func({laInPType_cll}",
