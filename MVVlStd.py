@@ -16,15 +16,12 @@ def teInPWTypedWVali_fif(laWhatInPMsg_s, laInPValues_co=1, laValiInPMsg_s='',
   for l_co in range(loMaxTry_co):
     li_s = input(loInPMsg_s)
     if li_s == '' and laAcceptEmptyInPAsDf_b and laDfV_s is not None:
-      li_s = laDfV_s # 2Do: Che: laDfV_s is str
+      li_s = laDfV_s # 2Do: Che: laDfV_s is str OR UpLi
     # if not li_s: ??User(Exit|Bre) ??laAcceptEmpty(As(Df|Bre))InP_b=False
     try:
       if laInPTypeFlt_cll is not None:
-        # print(f'DBG:1 laInPTypeFlt_cll')
         liChe_i = laInPTypeFlt_cll(li_s)
-        # print(f'DBG:2 laInPTypeFlt_cll')
       else: liChe_i = li_s
-      # print(f'DBG:3 laInPTypeFlt_cll')
     except ValueError as leExc_o:
       loTypeAValiFlsCo_l[0] +=1; liChe_i = None
       print(f"\tERR: You input:'{li_s}' NOT pass check type w/func({laInPTypeFlt_cll}",
@@ -71,11 +68,15 @@ def teInPWTypedWVali_fif(laWhatInPMsg_s, laInPValues_co=1, laValiInPMsg_s='',
 #     )
 # print(f'В списке будет {tResLLen_co} элементов.')
 # tValiV_t = tuple(range(0, 10))
-tValiV_t = ('Y', 'N')
+# tValiV_t = ('Y', 'N')
 # tCndInPMsg_s = f' (по очереди по одной вводите любые цифры) a Integer OneOf{tValiV_t}'
-tRes_l = list(teInPWTypedWVali_fif(f' Ts 2 times',
-    laInPValues_co=2, laInPTypeFlt_cll=None, laDfV_s='Y',
-    laAcceptEmptyInPAsDf_b=True, laValiInPMsg_s=f'a character OneOf{tValiV_t}',
-    laVali_cll=lambda _s: _s.upper() in tValiV_t))
+# tRes_l = list(teInPWTypedWVali_fif(f' по очереди по одной любые цифры {tResLLen_co} раза',
+#     laInPValues_co=tResLLen_co, laValiInPMsg_s=f'a Integer OneOf{tValiV_t}',
+#     laVali_cll=lambda x: x in tValiV_t))
+# tValiV_t = ('Y', 'N')
+# tRes_l = list(teInPWTypedWVali_fif(f' Ts 2 times',
+#     laInPValues_co=2, laInPTypeFlt_cll=None, laDfV_s='Y',
+#     laAcceptEmptyInPAsDf_b=True, laValiInPMsg_s=f'a character OneOf{tValiV_t}',
+#     laVali_cll=lambda _s: _s.upper() in tValiV_t))
 # tRes_l.sort()
-print(tRes_l)
+# print(tRes_l)
